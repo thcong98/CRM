@@ -9,6 +9,9 @@ import com.example.crm.entity.Customer;
 import com.example.crm.repository.CustomerRepository;
 import com.example.crm.service.CustomerService;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
