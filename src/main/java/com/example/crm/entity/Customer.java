@@ -44,12 +44,14 @@ public class Customer {
 
     @NotBlank(message = "Subject cannot be blank")
     @Nonnull
-    @Column(name = "email", nullable = false, unique = true)
+    @Column(name = "email", nullable = false)
+    // , unique = true
     private String email;
 
     @NotBlank(message = "Subject cannot be blank")
     @Nonnull
-    @Column(name = "phoneNumber", nullable = false, unique = true)
+    @Column(name = "phoneNumber", nullable = false)
+    // , unique = true
     private String phoneNumber;
     
     @NotBlank(message = "Subject cannot be blank")
