@@ -1,5 +1,9 @@
 package com.example.crm.entity;
 
+import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -54,10 +58,10 @@ public class Customer {
     // , unique = true
     private String phoneNumber;
     
-    @NotBlank(message = "Subject cannot be blank")
     @Nonnull
+    @JsonFormat(pattern = "dd-MM-yyy", shape = JsonFormat.Shape.STRING)
     @Column(name = "birthday", nullable = false)
-    private String birthday;
+    private Date birthday;
 
     @NotBlank(message = "Subject cannot be blank")
     @Nonnull

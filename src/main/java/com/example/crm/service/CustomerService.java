@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.crm.entity.Customer;
 
@@ -16,5 +17,4 @@ public interface CustomerService {
         Optional<String> sortBy);
     Customer updateCustomer(Customer customer, Long id);
     void deteleCustomer(Long id);
-    void pagination(int start, int end);
 }

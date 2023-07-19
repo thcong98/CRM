@@ -1,5 +1,6 @@
 package com.example.crm.service.impl;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,8 +8,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.crm.entity.Customer;
+import com.example.crm.helper.ExcelHelper;
 import com.example.crm.repository.CustomerRepository;
 import com.example.crm.service.CustomerService;
 
@@ -66,10 +69,5 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void deteleCustomer(Long id){
         customerRepository.deleteById(id);
-    };
-
-    @Override
-    public void pagination(int start, int end){
-        
     };
 }
