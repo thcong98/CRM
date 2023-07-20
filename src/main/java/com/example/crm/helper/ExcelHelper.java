@@ -42,16 +42,15 @@ public class ExcelHelper {
             int rowIdx = 1;
             for (Customer customer : customers) {
                 Row row = sheet.createRow(rowIdx++);
-                row.createCell(0).setCellValue(customer.getId());
-                row.createCell(1).setCellValue(customer.getAddress());
-                row.createCell(2).setCellValue(customer.getBirthday());
-                row.createCell(3).setCellValue(customer.getCode());
-                row.createCell(4).setCellValue(customer.getEmail());
-                row.createCell(5).setCellValue(customer.getFirstName());
-                row.createCell(6).setCellValue(customer.getGender());
-                row.createCell(7).setCellValue(customer.getLastName());
-                row.createCell(8).setCellValue(customer.getPhoneNumber());
-                row.createCell(9).setCellValue(customer.getTypeId());
+                row.createCell(0).setCellValue(customer.getAddress());
+                row.createCell(1).setCellValue(customer.getBirthday());
+                row.createCell(2).setCellValue(customer.getCode());
+                row.createCell(3).setCellValue(customer.getEmail());
+                row.createCell(4).setCellValue(customer.getFirstName());
+                row.createCell(5).setCellValue(customer.getGender());
+                row.createCell(6).setCellValue(customer.getLastName());
+                row.createCell(7).setCellValue(customer.getPhoneNumber());
+                row.createCell(8).setCellValue(customer.getTypeId());
             }
 
             workbook.write(out);
@@ -65,11 +64,9 @@ public class ExcelHelper {
     public static List<Customer> excelToCustomer(InputStream is) throws IOException {
         try {
             Workbook workbook = new XSSFWorkbook(is);
-
             Sheet sheet = workbook.getSheet(SHEET);
             Iterator<Row> rows = sheet.iterator();
 
-            List<Customer> customers = new ArrayList<Customer>();
 
             int rowNumber = 0;
             while (rows.hasNext()) {
