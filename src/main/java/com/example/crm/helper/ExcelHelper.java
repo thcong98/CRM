@@ -9,8 +9,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-import javax.swing.text.Style;
-
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.hssf.util.HSSFColor.HSSFColorPredefined;
 import org.apache.poi.ss.usermodel.Cell;
@@ -58,9 +56,9 @@ public class ExcelHelper {
         } else if (type.equals("even")) {
             font.setColor(HSSFColorPredefined.GREY_80_PERCENT.getIndex());
             styleHeader.setFillForegroundColor(IndexedColors.WHITE1.getIndex());
-        }
-        // styleHeader.setFillForegroundColor(getRandomColorIndex()); //get random for
-        // fun
+        } 
+        //get random for fun
+        // styleHeader.setFillForegroundColor(getRandomColorIndex()); 
         styleHeader.setFillPattern(FillPatternType.SOLID_FOREGROUND);
         styleHeader.setFont(font);
 
@@ -89,8 +87,10 @@ public class ExcelHelper {
                 Row row = sheet.createRow(rowIdx++);
 
                 CellStyle style = HieuCellStyle(workbook, "even");
+                CellStyle Datestyle = HieuCellStyle(workbook, "even");
                 if (rowIdx%2 == 1){
                     style = HieuCellStyle(workbook, "odd");
+                    Datestyle = HieuCellStyle(workbook, "odd");
                 }
 
                 Cell cell0 = row.createCell(0);
@@ -98,12 +98,15 @@ public class ExcelHelper {
                 cell0.setCellValue(customer.getAddress());
 
                 Cell cell1 = row.createCell(1);
-                cell1.setCellStyle(style);
+                // fix date format errol
+                Datestyle.setDataFormat(workbook.getCreationHelper().createDataFormat().getFormat("dd-MMM-yyyy")); 
+                //continue
+                cell1.setCellStyle(Datestyle);
                 cell1.setCellValue(customer.getBirthday());
 
                 Cell cell2 = row.createCell(2);
                 cell2.setCellStyle(style);
-                cell2.setCellValue(customer.getCode());
+                cell2.setCellValue((Long)customer.getCode());
 
                 Cell cell3 = row.createCell(3);
                 cell3.setCellStyle(style);
@@ -124,6 +127,7 @@ public class ExcelHelper {
                 Cell cell7 = row.createCell(7);
                 cell7.setCellStyle(style);
                 cell7.setCellValue(customer.getPhoneNumber());
+
                 Cell cell8 = row.createCell(8);
                 cell8.setCellStyle(style);
                 cell8.setCellValue(customer.getTypeId());
@@ -165,31 +169,31 @@ public class ExcelHelper {
                     Cell cell = cellsInRow.next();
 
                     switch (cellIdx) {
-                        case 1:
+                        case 0:
                             c.setAddress(cell.getStringCellValue());
                             break;
-                        case 2:
+                        case 1:
                             c.setBirthday(cell.getDateCellValue());
                             break;
-                        case 3:
+                        case 2:
                             c.setCode((long) cell.getNumericCellValue());
                             break;
-                        case 4:
+                        case 3:
                             c.setEmail(cell.getStringCellValue());
                             break;
-                        case 5:
+                        case 4:
                             c.setFirstName(cell.getStringCellValue());
                             break;
-                        case 6:
+                        case 5:
                             c.setGender(cell.getStringCellValue());
                             break;
-                        case 7:
+                        case 6:
                             c.setLastName(cell.getStringCellValue());
                             break;
-                        case 8:
+                        case 7:
                             c.setPhoneNumber(cell.getStringCellValue());
                             break;
-                        case 9:
+                        case 8:
                             c.setTypeId(cell.getStringCellValue());
                             break;
                         default:
