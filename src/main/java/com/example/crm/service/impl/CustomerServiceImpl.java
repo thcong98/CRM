@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.crm.entity.Customer;
+import com.example.crm.exception.CustomerNotFoundException;
 import com.example.crm.helper.ExcelHelper;
 import com.example.crm.repository.CustomerRepository;
 import com.example.crm.service.CustomerService;
@@ -30,13 +31,13 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer getCustomerbyId(Long id) {
-        Optional<Customer> optionalCustomer = customerRepository.findById(id);
-        return optionalCustomer.get();
+        Optional<Customer> mayOptionalCustomer = customerRepository.findById(id);
+        return unwrapCustomer(mayOptionalCustomer, id);
     };
 
     @Override
     public List<Customer> getAllCustomers(){
-        return customerRepository.findAll();
+        return (List<Customer>) customerRepository.findAll();
     };
 
     @Override
@@ -52,7 +53,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer updateCustomer(Customer customer, Long id){
-        Customer existingCustomer = customerRepository.findById(id).get();
+        Optional<Customer> mayExitCustomer = customerRepository.findById(id);
+        Customer existingCustomer = unwrapCustomer(mayExitCustomer, id);
         existingCustomer.setCode(customer.getCode());
         existingCustomer.setAddress(customer.getAddress());
         existingCustomer.setBirthday(customer.getBirthday());;
@@ -62,12 +64,19 @@ public class CustomerServiceImpl implements CustomerService {
         existingCustomer.setLastName(customer.getLastName());;
         existingCustomer.setPhoneNumber(customer.getPhoneNumber());;
         existingCustomer.setTypeId(customer.getTypeId());;
-        Customer updateCustomer = customerRepository.save(existingCustomer);
-        return updateCustomer;
+        return customerRepository.save(existingCustomer);
     };
 
     @Override
     public void deteleCustomer(Long id){
         customerRepository.deleteById(id);
     };
+
+    static Customer unwrapCustomer(Optional<Customer> entity, Long id) {
+        if (entity.isPresent())
+            return entity.get();
+        else
+            throw new CustomerNotFoundException(id);
+    }
+
 }
