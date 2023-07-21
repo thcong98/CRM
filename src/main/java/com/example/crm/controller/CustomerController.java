@@ -27,6 +27,7 @@ import com.example.crm.helper.ExcelHelper;
 import com.example.crm.service.CustomerService;
 import com.example.crm.service.ExcelService;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -69,7 +70,7 @@ public class CustomerController {
     }
 
     @PostMapping
-    public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer) {
+    public ResponseEntity<Customer> createCustomer(@Valid @RequestBody Customer customer) {
         return new ResponseEntity<>(customerService.createCustomer(customer), HttpStatus.CREATED);
     }
 
@@ -98,6 +99,7 @@ public class CustomerController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deleteCustomer(@PathVariable Long id) {
+        customerService.getCustomerbyId(id);
         customerService.deteleCustomer(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

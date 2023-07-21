@@ -12,16 +12,16 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Entity
 @Table(name = "customer")
 @Data
@@ -36,26 +36,24 @@ public class Customer {
     @Column(name = "code", nullable = false)
     private Long code;
 
-    @NotBlank(message = "Subject cannot be blank")
+    @NotBlank(message = "firstName cannot be blank")
     @Nonnull
     @Column(name = "firstName", nullable = false)
     private String firstName;
 
-    @NotBlank(message = "Subject cannot be blank")
+    @NotBlank(message = "lastName cannot be blank")
     @Nonnull
     @Column(name = "lastName", nullable = false)
     private String lastName;
 
-    @NotBlank(message = "Subject cannot be blank")
+    @NotBlank(message = "email cannot be blank")
     @Nonnull
-    @Column(name = "email", nullable = false)
-    // , unique = true
+    @Column(name = "email", nullable = false) // , unique = true
     private String email;
 
-    @NotBlank(message = "Subject cannot be blank")
+    @NotBlank(message = "phoneNumber cannot be blank")
     @Nonnull
-    @Column(name = "phoneNumber", nullable = false)
-    // , unique = true
+    @Column(name = "phoneNumber", nullable = false)// , unique = true
     private String phoneNumber;
     
     @Nonnull
@@ -63,17 +61,17 @@ public class Customer {
     @Column(name = "birthday", nullable = false)
     private Date birthday;
 
-    @NotBlank(message = "Subject cannot be blank")
+    @NotBlank(message = "address cannot be blank")
     @Nonnull
     @Column(name = "address", nullable = false)
     private String address;
 
-    @NotBlank(message = "Subject cannot be blank")
+    @NotBlank(message = "gender cannot be blank")
     @Nonnull
     @Column(name = "gender", nullable = false)
     private String gender;
 
-    @NotBlank(message = "Subject cannot be blank")
+    @NotBlank(message = "typeId cannot be blank")
     @Nonnull
     @Column(name = "typeId", nullable = false)
     private String typeId;
