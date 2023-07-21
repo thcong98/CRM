@@ -1,6 +1,5 @@
 package com.example.crm.service.impl;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,7 +7,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.example.crm.entity.Customer;
 import com.example.crm.exception.CustomerNotFoundException;

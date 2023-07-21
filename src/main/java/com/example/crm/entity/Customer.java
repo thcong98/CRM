@@ -59,7 +59,7 @@ public class Customer {
     private String phoneNumber;
     
     @Nonnull
-    @JsonFormat(pattern = "dd-MM-yyy", shape = JsonFormat.Shape.STRING)
+    @JsonFormat(pattern = "dd-MMM-yyy", shape = JsonFormat.Shape.STRING)
     @Column(name = "birthday", nullable = false)
     private Date birthday;
 
