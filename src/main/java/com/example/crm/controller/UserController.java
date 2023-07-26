@@ -17,6 +17,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/v1")
 public class UserController {
+<<<<<<< HEAD
     @Autowired
     private UserService userService;
 
@@ -74,5 +75,8 @@ public class UserController {
         userService.deleteUser(id);
     }
 
+=======
+    
+>>>>>>> 4e37594ce8c8bea6ee7703d1c892bcbbd0e32ea2
 }
 
