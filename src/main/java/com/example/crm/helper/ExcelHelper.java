@@ -5,6 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
@@ -126,7 +127,7 @@ public class ExcelHelper {
 
                 Cell cell7 = row.createCell(7);
                 cell7.setCellStyle(style);
-                cell7.setCellValue(customer.getPhoneNumber());
+                cell7.setCellValue(String.join(",", customer.getPhoneNumber()));
 
                 Cell cell8 = row.createCell(8);
                 cell8.setCellStyle(style);
@@ -191,7 +192,7 @@ public class ExcelHelper {
                             c.setLastName(cell.getStringCellValue());
                             break;
                         case 7:
-                            c.setPhoneNumber(cell.getStringCellValue());
+                            c.setPhoneNumber(Arrays.asList(cell.getStringCellValue().split(",")));
                             break;
                         case 8:
                             c.setTypeId(cell.getStringCellValue());

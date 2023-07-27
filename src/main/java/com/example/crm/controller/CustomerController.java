@@ -97,6 +97,11 @@ public class CustomerController {
         return new ResponseEntity<Customer>(customerService.updateCustomer(customer, id), HttpStatus.OK);
     }
 
+    @PutMapping("/addphone/{id}/{phone}")
+    public ResponseEntity<Customer> addPhone( @PathVariable String phone, @PathVariable Long id) {
+        return new ResponseEntity<Customer>(customerService.addPhone(phone, id), HttpStatus.OK);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deleteCustomer(@PathVariable Long id) {
         customerService.getCustomerbyId(id);

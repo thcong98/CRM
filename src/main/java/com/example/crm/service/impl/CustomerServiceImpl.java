@@ -1,5 +1,6 @@
 package com.example.crm.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,7 +23,7 @@ public class CustomerServiceImpl implements CustomerService {
     private CustomerRepository customerRepository;
 
     @Override
-    public Customer createCustomer(Customer customer){
+    public Customer createCustomer(Customer customer) {
         return customerRepository.save(customer);
     };
 
@@ -33,39 +34,44 @@ public class CustomerServiceImpl implements CustomerService {
     };
 
     @Override
-    public List<Customer> getAllCustomers(){
+    public List<Customer> getAllCustomers() {
         return (List<Customer>) customerRepository.findAll();
     };
 
     @Override
     public Page<Customer> getCustomers(
-        Optional<Integer> page,
-        Optional<Integer> pageSize,
-        Optional<String> sortBy
-        ){
-            return customerRepository.findAll(
-                PageRequest.of(page.orElse(0), pageSize.orElse(5), Sort.Direction.ASC, sortBy.orElse("id"))
-            );
+            Optional<Integer> page,
+            Optional<Integer> pageSize,
+            Optional<String> sortBy) {
+        return customerRepository.findAll(
+                PageRequest.of(page.orElse(0), pageSize.orElse(5), Sort.Direction.ASC, sortBy.orElse("id")));
     };
 
     @Override
-    public Customer updateCustomer(Customer customer, Long id){
+    public Customer updateCustomer(Customer customer, Long id) {
         Optional<Customer> mayExitCustomer = customerRepository.findById(id);
         Customer existingCustomer = unwrapCustomer(mayExitCustomer, id);
         existingCustomer.setCode(customer.getCode());
         existingCustomer.setAddress(customer.getAddress());
-        existingCustomer.setBirthday(customer.getBirthday());;
-        existingCustomer.setEmail(customer.getEmail());;
-        existingCustomer.setFirstName(customer.getFirstName());;
-        existingCustomer.setGender(customer.getGender());;
-        existingCustomer.setLastName(customer.getLastName());;
-        existingCustomer.setPhoneNumber(customer.getPhoneNumber());;
-        existingCustomer.setTypeId(customer.getTypeId());;
+        existingCustomer.setBirthday(customer.getBirthday());
+        ;
+        existingCustomer.setEmail(customer.getEmail());
+        ;
+        existingCustomer.setFirstName(customer.getFirstName());
+        ;
+        existingCustomer.setGender(customer.getGender());
+        ;
+        existingCustomer.setLastName(customer.getLastName());
+        ;
+        existingCustomer.setPhoneNumber(customer.getPhoneNumber());
+        ;
+        existingCustomer.setTypeId(customer.getTypeId());
+        ;
         return customerRepository.save(existingCustomer);
     };
 
     @Override
-    public void deteleCustomer(Long id){
+    public void deteleCustomer(Long id) {
         customerRepository.deleteById(id);
     };
 
@@ -76,4 +82,14 @@ public class CustomerServiceImpl implements CustomerService {
             throw new CustomerNotFoundException(id);
     }
 
+    @Override
+    public Customer addPhone(String phone, Long id) {
+        Optional<Customer> mayExitCustomer = customerRepository.findById(id);
+        Customer existingCustomer = unwrapCustomer(mayExitCustomer, id);
+        List<String> phoneNumbers = new ArrayList<>(existingCustomer.getPhoneNumber());
+        phoneNumbers.add(phone);
+        existingCustomer.setPhoneNumber(phoneNumbers);
+        return customerRepository.save(existingCustomer);
+    };
 }
+

@@ -1,6 +1,7 @@
 package com.example.crm.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -51,10 +52,9 @@ public class Customer {
     @Column(name = "email", nullable = false) // , unique = true
     private String email;
 
-    @NotBlank(message = "phoneNumber cannot be blank")
     @Nonnull
-    @Column(name = "phoneNumber", nullable = false)// , unique = true
-    private String phoneNumber;
+    @Column(name = "phoneNumber", nullable = false) // , unique = true
+    private List<String> phoneNumber;
     
     @Nonnull
     @JsonFormat(pattern = "dd-MMM-yyy", shape = JsonFormat.Shape.STRING)
@@ -75,4 +75,5 @@ public class Customer {
     @Nonnull
     @Column(name = "typeId", nullable = false)
     private String typeId;
+
 }

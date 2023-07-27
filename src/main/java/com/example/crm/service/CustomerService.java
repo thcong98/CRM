@@ -16,4 +16,5 @@ public interface CustomerService {
         Optional<String> sortBy);
     Customer updateCustomer(Customer customer, Long id);
     void deteleCustomer(Long id);
+    Customer addPhone(String phone, Long id);
 }
