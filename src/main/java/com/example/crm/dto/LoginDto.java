@@ -1,7 +1,6 @@
 package com.example.crm.dto;
 
 public class LoginDto {
-<<<<<<< HEAD
     private String username;
     private String password;
 
@@ -25,7 +24,4 @@ public class LoginDto {
     public void setPassword(String password) {
         this.password = password;
     }
-=======
-    
->>>>>>> 4e37594ce8c8bea6ee7703d1c892bcbbd0e32ea2
 }
