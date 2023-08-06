@@ -1,9 +1,7 @@
 package com.example.crm.entity;
 
-import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.*;
-import javax.validation.constraints.Email;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 
 import java.util.Date;
 import java.util.UUID;
@@ -12,8 +10,7 @@ import java.util.UUID;
 @Table(name = "tb_user")
 public class User {
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
     @Column(name = "code")

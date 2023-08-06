@@ -27,7 +27,7 @@ import com.example.crm.helper.ExcelHelper;
 import com.example.crm.service.CustomerService;
 import com.example.crm.service.ExcelService;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController
