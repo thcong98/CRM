@@ -3,6 +3,8 @@ package com.example.crm.controller;
 import java.util.List;
 import java.util.Optional;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
@@ -11,6 +13,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +36,7 @@ import lombok.AllArgsConstructor;
 @RestController
 @CrossOrigin("*")
 @AllArgsConstructor
+@SecurityRequirement(name = "Authorization")
 @RequestMapping("/customers")
 public class CustomerController {
 
@@ -69,22 +73,29 @@ public class CustomerController {
                 .body(file);
     }
 
+    @Operation(summary = "Add a new customer", description = "Both user and admin can add a new customer")
     @PostMapping
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<Customer> createCustomer(@Valid @RequestBody Customer customer) {
         return new ResponseEntity<>(customerService.createCustomer(customer), HttpStatus.CREATED);
     }
 
+    @Operation(summary = "Find user by ID", description = "Both user and admin can find a user by its specifying ID")
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<Customer> getCustomer(@PathVariable Long id) {
         return new ResponseEntity<Customer>(customerService.getCustomerbyId(id), HttpStatus.OK);
     }
 
+    @Operation(summary = "Find all user", description = "Both user and admin can find all user")
     @GetMapping("/all")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<List<Customer>> getAllCustomers() {
         return new ResponseEntity<>(customerService.getAllCustomers(), HttpStatus.OK);
     }
 
     @GetMapping("/")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<Page<Customer>> getCustomers(
             @RequestParam Optional<Integer> page,
             @RequestParam Optional<Integer> pageSize,
@@ -93,11 +104,13 @@ public class CustomerController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<Customer> updateCustomer(@RequestBody Customer customer, @PathVariable Long id) {
         return new ResponseEntity<Customer>(customerService.updateCustomer(customer, id), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<HttpStatus> deleteCustomer(@PathVariable Long id) {
         customerService.getCustomerbyId(id);
         customerService.deteleCustomer(id);

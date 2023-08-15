@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -27,6 +29,9 @@ public class User {
 
     @Column(name = "email")
     @Email
+    private String email;
+
+    @Column(name = "username")
     private String username;
 
     @Column(name = "phoneNumber")
@@ -41,13 +46,17 @@ public class User {
     @Column(name = "gender")
     private String gender;
 
-    public User() {
-    }
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_roles",
+                joinColumns = @JoinColumn(name = "user_id"),
+                inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
 
-    public User(String firstName, String lastName, String fullName, String username, String phoneNumber, String password, Date birthday, String gender) {
+    public User(String firstName, String lastName, String fullName, String email, String username, String phoneNumber, String password, Date birthday, String gender) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.fullName= fullName;
+        this.email = email;
         this.username = username;
         this.phoneNumber = phoneNumber;
         this.password = password;
@@ -55,21 +64,7 @@ public class User {
         this.gender = gender;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id='" + id + '\'' +
-                ", code='" + code + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", fullName='" + fullName + '\'' +
-                ", username='" + username + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", password='" + password + '\'' +
-                ", birthday=" + birthday +
-                ", gender='" + gender + '\'' +
-                '}';
-    }
+    public User() {}
 
     public String getId() {
         return id;
@@ -108,7 +103,7 @@ public class User {
     }
 
     public void setFullName(String fullName) {
-        this.fullName = fullName;
+        this.fullName = lastName + " " + firstName;
     }
 
     public String getUsername() {
@@ -149,6 +144,22 @@ public class User {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
 

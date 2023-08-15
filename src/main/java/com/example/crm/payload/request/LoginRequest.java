@@ -1,13 +1,17 @@
-package com.example.crm.dto;
+package com.example.crm.payload.request;
 
-public class LoginDto {
+import jakarta.validation.constraints.NotBlank;
+
+public class LoginRequest {
+    @NotBlank
     private String username;
+    @NotBlank
     private String password;
 
-    public LoginDto(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
+//    public LoginRequest(String username, String password) {
+//        this.username = username;
+//        this.password = password;
+//    }
 
     public String getUsername() {
         return username;

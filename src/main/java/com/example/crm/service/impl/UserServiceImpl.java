@@ -8,26 +8,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
+
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Override
-    public User createUser(User user) {
-        User userCreated = new User(
-                user.getFirstName(),
-                user.getLastName(),
-                user.getFullName(),
-                user.getUsername(),
-                user.getPhoneNumber(),
-                user.getPassword(),
-                user.getBirthday(),
-                user.getGender()
-        );
-        userRepository.save(userCreated);
-        return userCreated;
-    }
 
     @Override
     public List<User> findAllUsers() {
@@ -52,8 +39,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(String id) {
-        userRepository.deleteById(id);
+    public void deleteUser(UUID id) {
+        userRepository.deleteById(String.valueOf(id));
     }
 }
 

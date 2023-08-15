@@ -4,9 +4,9 @@ import com.example.crm.entity.User;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public interface UserService {
-    User createUser(User user); //saveUser
 
     List<User> findAllUsers();
 
@@ -14,7 +14,6 @@ public interface UserService {
 
     User updateUser(User user, String id);
 
-    void deleteUser(String id);
-
+    void deleteUser(UUID id);
 }
 
