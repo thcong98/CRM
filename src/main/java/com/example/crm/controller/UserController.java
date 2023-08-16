@@ -31,7 +31,7 @@ public class UserController {
             summary = "Find all users",
             description = "List all users with their whole information. Both admin and user role can do it."
     )
-    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/all")
     public ResponseEntity<List<User>> findAllUser() {
         return new ResponseEntity<>(userService.findAllUsers(), HttpStatus.OK);
