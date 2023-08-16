@@ -28,10 +28,10 @@ public class UserController {
     private UserService userService;
 
     @Operation(
-            summary = "List all users",
-            description = "Find all users with whole information."
+            summary = "Find all users",
+            description = "List all users with their whole information. Both admin and user role can do it."
     )
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     @GetMapping("/all")
     public ResponseEntity<List<User>> findAllUser() {
         return new ResponseEntity<>(userService.findAllUsers(), HttpStatus.OK);
@@ -40,7 +40,8 @@ public class UserController {
 
     @Operation(
             summary = "Retrieve a user by id",
-            description = "Get information about a user by specifying its id. The response is User object with id, code, firstname, lastname, fullname,..."
+            description = "Get information about a user by specifying its id. The response is User object with id, code, firstname, lastname, fullname,..." +
+                    "Both admin and user can do it."
     )
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{id}")
@@ -52,7 +53,8 @@ public class UserController {
     @Operation(
             summary = "Update information for a user according id",
             description = "Update user with firstname, lastname, phone number, birthday, gender by specifying its id." +
-                    "The response is all about a user."
+                    "The response is all about a user." +
+                    "Person has Admin role can do it."
     )
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
@@ -62,7 +64,8 @@ public class UserController {
 
     @Operation(
             summary = "Delete a user according id",
-            description = "Delete user by specifying its id."
+            description = "Delete user by specifying its id." +
+                    "Person has Admin role can do it."
     )
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")

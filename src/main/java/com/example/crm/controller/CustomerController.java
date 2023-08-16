@@ -87,13 +87,17 @@ public class CustomerController {
         return new ResponseEntity<Customer>(customerService.getCustomerbyId(id), HttpStatus.OK);
     }
 
-    @Operation(summary = "Find all user", description = "Both user and admin can find all user")
+    @Operation(summary = "Find all user", description = "List all customers with their whole information. " +
+            "Both user and admin can find all user")
     @GetMapping("/all")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<List<Customer>> getAllCustomers() {
         return new ResponseEntity<>(customerService.getAllCustomers(), HttpStatus.OK);
     }
 
+    @Operation(summary = "Pagination customer", description = "Paging customer's information with specifying page, size number." +
+            "Can also sort by some fields." +
+            "Both admin and user can do that.")
     @GetMapping("/")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<Page<Customer>> getCustomers(
@@ -103,12 +107,18 @@ public class CustomerController {
         return new ResponseEntity<>(customerService.getCustomers(page, pageSize, sortBy), HttpStatus.OK);
     }
 
+    @Operation(summary = "Update information for a customer",
+            description = "Update information for a customer by specifying ID." +
+                    "Both admin and user role can do this.")
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<Customer> updateCustomer(@RequestBody Customer customer, @PathVariable Long id) {
         return new ResponseEntity<Customer>(customerService.updateCustomer(customer, id), HttpStatus.OK);
     }
 
+
+    @Operation(summary = "Delete a customer", description = "Delete information of a customer by specifying ID." +
+            "Both admin and user role can do that")
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<HttpStatus> deleteCustomer(@PathVariable Long id) {
