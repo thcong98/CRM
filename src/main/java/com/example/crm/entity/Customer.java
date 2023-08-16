@@ -11,12 +11,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
@@ -55,7 +52,7 @@ public class Customer {
     @Nonnull
     @Column(name = "phoneNumber", nullable = false)// , unique = true
     private String phoneNumber;
-    
+
     @Nonnull
     @JsonFormat(pattern = "dd-MMM-yyy", shape = JsonFormat.Shape.STRING)
     @Column(name = "birthday", nullable = false)
