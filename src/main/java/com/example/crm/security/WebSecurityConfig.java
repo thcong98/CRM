@@ -53,8 +53,8 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers("/auth/**").permitAll()
                                 .requestMatchers("/v3/api-docs/**", "/swagger-ui/**").permitAll()
-                                .requestMatchers("/user/**").permitAll()
-                                .requestMatchers("/customers/**").permitAll()
+                                .requestMatchers("/user/**").hasAuthority("ADMIN")
+                                .requestMatchers("/customer/**").hasAuthority("USER")
                         .anyRequest().authenticated()
                 );
         http.authenticationProvider(authenticationProvider());

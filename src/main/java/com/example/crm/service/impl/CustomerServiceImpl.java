@@ -1,79 +1,52 @@
 package com.example.crm.service.impl;
 
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Service;
-
 import com.example.crm.entity.Customer;
-import com.example.crm.exception.CustomerNotFoundException;
 import com.example.crm.repository.CustomerRepository;
 import com.example.crm.service.CustomerService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import lombok.AllArgsConstructor;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
-@AllArgsConstructor
 @Service
 public class CustomerServiceImpl implements CustomerService {
-
-    private CustomerRepository customerRepository;
+    @Autowired
+    CustomerRepository customerRepository;
 
     @Override
-    public Customer createCustomer(Customer customer){
+    public Customer addCustomer(Customer customer) {
         return customerRepository.save(customer);
-    };
-
-    @Override
-    public Customer getCustomerbyId(Long id) {
-        Optional<Customer> mayOptionalCustomer = customerRepository.findById(id);
-        return unwrapCustomer(mayOptionalCustomer, id);
-    };
-
-    @Override
-    public List<Customer> getAllCustomers(){
-        return (List<Customer>) customerRepository.findAll();
-    };
-
-    @Override
-    public Page<Customer> getCustomers(
-        Optional<Integer> page,
-        Optional<Integer> pageSize,
-        Optional<String> sortBy
-        ){
-            return customerRepository.findAll(
-                PageRequest.of(page.orElse(0), pageSize.orElse(5), Sort.Direction.ASC, sortBy.orElse("id"))
-            );
-    };
-
-    @Override
-    public Customer updateCustomer(Customer customer, Long id){
-        Optional<Customer> mayExitCustomer = customerRepository.findById(id);
-        Customer existingCustomer = unwrapCustomer(mayExitCustomer, id);
-        existingCustomer.setCode(customer.getCode());
-        existingCustomer.setAddress(customer.getAddress());
-        existingCustomer.setBirthday(customer.getBirthday());;
-        existingCustomer.setEmail(customer.getEmail());;
-        existingCustomer.setFirstName(customer.getFirstName());;
-        existingCustomer.setGender(customer.getGender());;
-        existingCustomer.setLastName(customer.getLastName());;
-        existingCustomer.setPhoneNumber(customer.getPhoneNumber());;
-        existingCustomer.setTypeId(customer.getTypeId());;
-        return customerRepository.save(existingCustomer);
-    };
-
-    @Override
-    public void deteleCustomer(Long id){
-        customerRepository.deleteById(id);
-    };
-
-    static Customer unwrapCustomer(Optional<Customer> entity, Long id) {
-        if (entity.isPresent())
-            return entity.get();
-        else
-            throw new CustomerNotFoundException(id);
     }
 
+    @Override
+    public List<Customer> findAllCustomers() {
+        return customerRepository.findAll();
+    }
+
+    @Override
+    public Optional<Customer> findCustomerById(UUID id) {
+        return customerRepository.findById(id);
+    }
+
+    @Override
+    public Customer updateCustomer(Customer customer, UUID id) {
+        Customer existCustomer = customerRepository.findById(id).get();
+
+        existCustomer.setFirstname(customer.getFirstname());
+        existCustomer.setLastname(customer.getLastname());
+        existCustomer.setEmail(customer.getEmail());
+        existCustomer.setPhoneNumber(customer.getPhoneNumber());
+        existCustomer.setBirthday(customer.getBirthday());
+        existCustomer.setAddress(customer.getAddress());
+        existCustomer.setGender(customer.getGender());
+        customerRepository.save(existCustomer);
+        return existCustomer;
+    }
+
+    @Override
+    public void deleteUser(UUID id) {
+        customerRepository.deleteById(id);
+    }
 }
