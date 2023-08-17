@@ -8,7 +8,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,42 +23,37 @@ public class CustomerControlller {
     CustomerService customerService;
 
     @Operation(summary = "Add a new customer", description = "Save information of a new customer: first name, last name, email and phone number are compulsory, " +
-            "birthday, address and gender." +
-            "Both admin and user can do this.")
-    @PreAuthorize("hasRole('USER')")
+            "birthday, address and gender.\n" +
+            " user can do this.")
     @PostMapping("/add")
     public ResponseEntity<Customer> addCustomer(@RequestBody Customer customer) {
         return new ResponseEntity<>(customerService.addCustomer(customer), HttpStatus.CREATED);
     }
 
     @Operation(summary = "Find all customers", description = "List all customers with their whole information." +
-            "Both admin and user can do this.")
-    @PreAuthorize("hasRole('USER')")
+            "user can do this.")
     @GetMapping("/all")
-    public ResponseEntity<List<Customer>> findAllUsers () {
+    public ResponseEntity<List<Customer>> findAllCustomers () {
         return new ResponseEntity<>(customerService.findAllCustomers(), HttpStatus.OK);
     }
 
     @Operation(summary = "Find a customer by ID", description = "Find a customer by specifying ID. " +
-            "Both admin and user can do this. ")
-    @PreAuthorize("hasRole('USER')")
+            " user can do this. ")
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Customer>> findUserById (@PathVariable("id")UUID id) {
+    public ResponseEntity<Optional<Customer>> findCustomerById (@PathVariable("id")UUID id) {
         return new ResponseEntity<>(customerService.findCustomerById(id),HttpStatus.OK);
     }
 
-    @Operation(summary = "Update information for a customer", description = "Update: first name, last name, email, phone, birthday, address and gender." +
-            "The response is customer's information after being updated." +
-            "Both admin and user can do this.")
-    @PreAuthorize("hasRole('USER')")
+    @Operation(summary = "Update information for a customer", description = "Update: first name, last name, email, phone, birthday, address and gender.\n" +
+            "The response is customer's information after being updated.\n" +
+            "user can do this.")
     @PutMapping("/{id}")
     public ResponseEntity<Customer> updateCustomer(@PathVariable("id") UUID id, @RequestBody Customer customer) {
         return new ResponseEntity<>(customerService.updateCustomer(customer, id), HttpStatus.OK);
     }
 
     @Operation(summary = "Delete a customer by ID", description = "Delete whole information of a customer by their specifying ID." +
-            "Both admin and user can do this.")
-    @PreAuthorize("hasRole('USER')")
+            " user can do this.")
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deleteCustomerById(@PathVariable("id") UUID id) {
         customerService.deleteUser(id);
