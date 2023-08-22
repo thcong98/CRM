@@ -19,13 +19,13 @@ public class User {
     private String code = String.valueOf(UUID.randomUUID());
 
     @Column(name = "firstName")
-    private String firstName;
+    private String firstname;
 
     @Column(name = "lastName")
-    private String lastName;
+    private String lastname;
 
     @Column(name = "fullName")
-    private String fullName;
+    private String fullname;
 
     @Column(name = "email")
     @Email
@@ -52,10 +52,10 @@ public class User {
                 inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    public User(String firstName, String lastName, String fullName, String email, String username, String phoneNumber, String password, Date birthday, String gender) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.fullName= fullName;
+    public User(String firstname, String lastname, String fullname, String email, String username, String phoneNumber, String password, Date birthday, String gender) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.fullname= fullname;
         this.email = email;
         this.username = username;
         this.phoneNumber = phoneNumber;
@@ -83,27 +83,27 @@ public class User {
     }
 
     public String getFirstName() {
-        return firstName;
+        return firstname;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirstName(String firstname) {
+        this.firstname = firstname;
     }
 
     public String getLastName() {
-        return lastName;
+        return lastname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastName(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getFullName() {
-        return firstName + " " + lastName;
+        return firstname + " " + lastname;
     }
 
     public void setFullName(String fullName) {
-        this.fullName = lastName + " " + firstName;
+        this.fullname = lastname + " " + firstname;
     }
 
     public String getUsername() {
