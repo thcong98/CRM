@@ -45,12 +45,12 @@ public class AttachmentImpl implements AttachmentService {
         return resource;
     }
 
-    @Override
-    public Resource convertToPdf(String id) throws Exception {
-        Attachment attachment = attachmentRepository.findById(id).orElseThrow(
-                ()-> new Exception("not found")
-        );
-        Resource resource = filesStorageService.load(attachment.getPhysical_path());
-        return resource;
-    }
+//    @Override
+//    public Resource convertToPdf(String id) throws Exception {
+//        Attachment attachment = attachmentRepository.findById(id).orElseThrow(
+//                ()-> new Exception("not found")
+//        );
+//        Resource resource = filesStorageService.load(attachment.getPhysical_path());
+//        return resource;
+//    }
 }

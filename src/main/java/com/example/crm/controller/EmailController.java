@@ -2,6 +2,7 @@ package com.example.crm.controller;
 
 import com.example.crm.entity.EmailDetails;
 import com.example.crm.service.EmailService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ public class EmailController {
     @Autowired
     private EmailService emailService;
 
+    @Operation(summary = "Send an email", description = "Send a simple email to a customer with subject and message. Both admin and user role can access.")
     @PostMapping("/send")
     public String sendMail(@RequestBody EmailDetails details) {
         String status = emailService.sendSimpleEmail(details);
